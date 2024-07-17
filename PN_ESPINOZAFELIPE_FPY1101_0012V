@@ -14,3 +14,17 @@ def generar_saldos_aleatorios(): # se genera aca saldo para los 10 clientes
         saldos.append(saldo)
     return saldos
 
+def clasificar_saldos(saldos): # se genera 3 rangos de saldos y se clasifican, bajo medio y alto 
+    bajos = []
+    medios = []
+    altos = []
+    
+    for saldo in saldos:
+        if saldo < 800000:
+            bajos.append(saldo)
+        elif saldo > 800001 or saldo < 2000000 :
+            medios.append(saldo)
+        elif saldo < 2000001:
+            altos.append(saldo)
+    
+    return bajos, medios, altos
