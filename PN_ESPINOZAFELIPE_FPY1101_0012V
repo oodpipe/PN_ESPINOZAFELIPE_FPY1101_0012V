@@ -1,7 +1,16 @@
-'La aplicación deberá poseer un menú con las siguientes funcionalidades:'
-'1. Asignar sueldos aleatorios'
-'2. Clasificar sueldos'
-'3. Ver estadísticas.'
-'4. Reporte de sueldos'
-'5. Salir del programa'
+#'La aplicación deberá poseer un menú con las siguientes funcionalidades:'
+#'1. Asignar sueldos aleatorios'
+#'2. Clasificar sueldos'
+#'3. Ver estadísticas.'
+#'4. Reporte de sueldos'
+#'5. Salir del programa'
+
+import random
+
+def generar_saldos_aleatorios(): # se genera aca saldo para los 10 clientes
+    saldos = []
+    for cliente in range(10):
+        saldo = round(random.uniform(300000, 2500000), 2) 
+        saldos.append(saldo)
+    return saldos
 
