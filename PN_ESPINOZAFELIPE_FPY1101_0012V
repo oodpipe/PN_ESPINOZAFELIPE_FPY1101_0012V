@@ -81,4 +81,7 @@ saldos = generar_saldos_aleatorios()
 generar_reporte_sueldos(saldos, trabajadores, 'reporte_sueldos_examenOdpipe.csv')
 
 
-hfjdhkjfss
+rut = '21572588-k'
+nombre = 'Felipe Espinoza'
+print(f"Datos Personales:\nRUT: {rut}\nNombre: {nombre}")
+#datos personales
