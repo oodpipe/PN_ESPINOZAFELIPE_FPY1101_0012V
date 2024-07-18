@@ -7,16 +7,18 @@
 
 import random
 import csv
-import statistics  # Para calcular la media geométrica
+import statistics
 
-def generar_saldos_aleatorios():  # Genera saldo para 10 clientes
+def generar_saldos_aleatorios():
+    # Genera saldo aleatorio para 10 clientes
     saldos = []
     for cliente in range(10):
-        saldo = round(random.uniform(300000, 2500000), 2)
+        saldo = round(random.uniform(300000, 2500000), 2)  # Saldo entre 300,000 y 2,500,000
         saldos.append(saldo)
     return saldos
 
-def clasificar_y_ordenar_saldos(saldos):  # Clasifica los saldos en bajo, medio y alto
+def clasificar_y_ordenar_saldos(saldos):
+    # Clasifica los saldos en bajo, medio y alto
     bajos = []
     medios = []
     altos = []
@@ -26,32 +28,34 @@ def clasificar_y_ordenar_saldos(saldos):  # Clasifica los saldos en bajo, medio 
             bajos.append(saldo)
         elif 800000 <= saldo < 2000000:
             medios.append(saldo)
-        else: # < 2000000
+        else:
             altos.append(saldo)
     
-    
-    bajos.sort(reverse=True) # Ordenar cada lista de mayor a menor
+    # Ordenar cada lista de mayor a menor
+    bajos.sort(reverse=True)
     medios.sort(reverse=True)
     altos.sort(reverse=True)
     
     return bajos, medios, altos
 
-def calcular_sueldo_liquido(sueldo_base):  # Calcula el sueldo líquido
+def calcular_sueldo_liquido(sueldo_base):
+    # Calcula el sueldo líquido después de descuentos
     descuento_salud = sueldo_base * 0.07
     descuento_afp = sueldo_base * 0.12
     sueldo_liquido = sueldo_base - (descuento_salud + descuento_afp)
     return sueldo_liquido
 
 def generar_reporte_sueldos(sueldos, trabajadores, archivo):
+    # Clasificar y ordenar los saldos
+    bajos, medios, altos = clasificar_y_ordenar_saldos(sueldos)
     
-    bajos, medios, altos = clasificar_y_ordenar_saldos(sueldos) # Clasificar y ordenar los saldos
-    
+    # Crear un archivo CSV con la información de sueldos
     with open(archivo, mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['Nombre', 'Sueldo Base', 'Descuento Salud (7%)', 'Descuento AFP (12%)', 'Sueldo Líquido'])
         
-        
-        saldos_ordenados = bajos + medios + altos # Combinar saldos ordenados
+        # Combinar los saldos ordenados
+        saldos_ordenados = bajos + medios + altos
         
         for nombre, sueldo_base in zip(trabajadores, saldos_ordenados):
             descuento_salud = sueldo_base * 0.07
@@ -65,7 +69,22 @@ def generar_reporte_sueldos(sueldos, trabajadores, archivo):
                 round(sueldo_liquido, 2)
             ])
 
-# TRABAJADOREEEES
+def mostrar_estadisticas(saldos):
+    # Mostrar estadísticas de los sueldos
+    sueldo_maximo = max(saldos)
+    sueldo_minimo = min(saldos)
+    promedio_sueldos = sum(saldos) / len(saldos)
+    
+    # Calcular media geométrica usando estadísticas
+    log_saldos = [statistics.log(x) for x in saldos]
+    media_geometrica = statistics.exp(statistics.mean(log_saldos))
+    
+    print(f"Sueldo más alto: {sueldo_maximo}")
+    print(f"Sueldo más bajo: {sueldo_minimo}")
+    print(f"Promedio de sueldos: {promedio_sueldos:.2f}")
+    print(f"Media geométrica: {media_geometrica:.2f}")
+
+# Lista de trabajadores
 trabajadores = [
     "Juan Pérez", "María García", "Carlos López", "Ana Martínez",
     "Pedro Rodríguez", "Laura Hernández", "Miguel Sánchez", 
@@ -76,7 +95,11 @@ trabajadores = [
 saldos = generar_saldos_aleatorios()
 generar_reporte_sueldos(saldos, trabajadores, 'reporte_sueldos_Odpipeeee.csv')
 
+# Mostrar estadísticas
+mostrar_estadisticas(saldos)
+
 # Datos personales
 rut = '21572588-k'
 nombre = 'Desarrollado por Felipe Espinoza'
 print(f"Datos Personales:\nRUT: {rut}\nNombre: {nombre}")
+
