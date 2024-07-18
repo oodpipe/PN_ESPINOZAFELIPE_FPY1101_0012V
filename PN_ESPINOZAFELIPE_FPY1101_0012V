@@ -28,3 +28,27 @@ def clasificar_saldos(saldos): # se genera 3 rangos de saldos y se clasifican, b
             altos.append(saldo)
     
     return bajos, medios, altos
+
+def calcular_maximo(lista): # se calcula el mas alto de la lista
+    maximo = lista[0]
+    for elemento in lista[1:]:
+        if elemento > maximo:
+            maximo = elemento
+    return maximo
+
+def calcular_minimo(lista): # se calcula el mas bajo de la lista range 0
+    minimo = lista[0]
+    for elemento in lista[1:]:
+        if elemento < minimo:
+            minimo = elemento
+    return minimo
+
+def calcular_promedio(lista): # promedio de una lista ocupo len para ver la iteraciones y prmedarilas
+    suma = sum(lista)
+    promedio = suma / len(lista)
+    return promedio
+
+import statistics #para poder medir la media geometrica
+def calcular_media_geometrica(lista): # aca ocupo statitics, forma mas facil y detallada
+    media_geometrica = statistics.geometric_mean(lista)
+    return media_geometrica
