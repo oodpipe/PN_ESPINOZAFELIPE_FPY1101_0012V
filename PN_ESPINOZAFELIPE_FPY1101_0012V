@@ -7,16 +7,16 @@
 
 import random
 import csv
-import statistics  # Para poder medir la media geométrica
+import statistics  # Para calcular la media geométrica
 
-def generar_saldos_aleatorios():  # Se genera saldo para los 10 clientes
+def generar_saldos_aleatorios():  # Genera saldo para 10 clientes
     saldos = []
     for cliente in range(10):
         saldo = round(random.uniform(300000, 2500000), 2)
         saldos.append(saldo)
     return saldos
 
-def clasificar_saldos(saldos):  # Se generan 3 rangos de saldos: bajo, medio y alto
+def clasificar_y_ordenar_saldos(saldos):  # Clasifica los saldos en bajo, medio y alto
     bajos = []
     medios = []
     altos = []
@@ -26,70 +26,57 @@ def clasificar_saldos(saldos):  # Se generan 3 rangos de saldos: bajo, medio y a
             bajos.append(saldo)
         elif 800000 <= saldo < 2000000:
             medios.append(saldo)
-        else:  # saldo >= 2000000
+        else: # < 2000000
             altos.append(saldo)
+    
+    
+    bajos.sort(reverse=True) # Ordenar cada lista de mayor a menor
+    medios.sort(reverse=True)
+    altos.sort(reverse=True)
     
     return bajos, medios, altos
 
-def calcular_maximo(lista):  # Se calcula el más alto de la lista
-    maximo = lista[0]
-    for elemento in lista[1:]:
-        if elemento > maximo:
-            maximo = elemento
-    return maximo
-
-def calcular_minimo(lista):  # Se calcula el más bajo de la lista
-    minimo = lista[0]
-    for elemento in lista[1:]:
-        if elemento < minimo:
-            minimo = elemento
-    return minimo
-
-def calcular_promedio(lista):  # Promedio de una lista
-    suma = sum(lista)
-    promedio = suma / len(lista)
-    return promedio
-
-def calcular_media_geometrica(lista):  # Se usa statistics para la media geométrica
-    media_geometrica = statistics.geometric_mean(lista)
-    return media_geometrica
-
-def calcular_sueldo_liquido(sueldo_base):  # Reporte de sueldos
+def calcular_sueldo_liquido(sueldo_base):  # Calcula el sueldo líquido
     descuento_salud = sueldo_base * 0.07
     descuento_afp = sueldo_base * 0.12
-    sueldo_liquido = sueldo_base - (descuento_salud + descuento_afp)  # Fonasa y AFP
+    sueldo_liquido = sueldo_base - (descuento_salud + descuento_afp)
     return sueldo_liquido
 
 def generar_reporte_sueldos(sueldos, trabajadores, archivo):
+    
+    bajos, medios, altos = clasificar_y_ordenar_saldos(sueldos) # Clasificar y ordenar los saldos
+    
     with open(archivo, mode='w', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(['Nombre', 'Sueldo Base', 'Descuento Salud (7%)', 'Descuento AFP (12%)', 'Sueldo Líquido'])
         
-        for nombre, sueldo_base in zip(trabajadores, sueldos):
-            descuento_salud = sueldo_base * 0.07  # 7%
-            descuento_afp = sueldo_base * 0.12  # 12%
-            sueldo_liquido = calcular_sueldo_liquido(sueldo_base)  # Sueldo líquido
+        
+        saldos_ordenados = bajos + medios + altos # Combinar saldos ordenados
+        
+        for nombre, sueldo_base in zip(trabajadores, saldos_ordenados):
+            descuento_salud = sueldo_base * 0.07
+            descuento_afp = sueldo_base * 0.12
+            sueldo_liquido = calcular_sueldo_liquido(sueldo_base)
             writer.writerow([
                 nombre,
                 round(sueldo_base, 2),
                 round(descuento_salud, 2),
                 round(descuento_afp, 2),
                 round(sueldo_liquido, 2)
-            ])  # Redondear a 2 decimales
+            ])
 
-# Lista de los trabajadores
+# TRABAJADOREEEES
 trabajadores = [
     "Juan Pérez", "María García", "Carlos López", "Ana Martínez",
     "Pedro Rodríguez", "Laura Hernández", "Miguel Sánchez", 
     "Isabel Gómez", "Francisco Díaz", "Elena Fernández"
 ]
 
-# Generación de saldos y reporte
+# Generar saldos y crear el reporte 
 saldos = generar_saldos_aleatorios()
-generar_reporte_sueldos(saldos, trabajadores, 'reporte_sueldos_examenOdpipe.csv')
+generar_reporte_sueldos(saldos, trabajadores, 'reporte_sueldos_Odpipeeee.csv')
 
 # Datos personales
 rut = '21572588-k'
-nombre = 'Felipe Espinoza'
+nombre = 'Desarrollado por Felipe Espinoza'
 print(f"Datos Personales:\nRUT: {rut}\nNombre: {nombre}")
-
