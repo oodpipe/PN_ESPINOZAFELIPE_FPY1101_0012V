@@ -70,4 +70,14 @@ def generar_reporte_sueldos(sueldos, trabajadores, archivo):
             sueldo_liquido = calcular_sueldo_liquido(sueldo_base) #Sueldo líquido calculado en base al sueldo base menos el descuento en salud y menos el descuento afp.
             writer.writerow([nombre, round(sueldo_base, 2), round(descuento_salud, 2), round(descuento_afp, 2), round(sueldo_liquido, 2)]) #2 para redondearr
 
-trabajadores = [
+trabajadores = [ 
+    "Juan Pérez", "María García", "Carlos López", "Ana Martínez",
+    "Pedro Rodríguez", "Laura Hernández", "Miguel Sánchez", 
+    "Isabel Gómez", "Francisco Díaz", "Elena Fernández"
+]
+#lista de lso trabajadores
+
+saldos = generar_saldos_aleatorios()
+generar_reporte_sueldos(saldos, trabajadores, 'reporte_sueldos_examenOdpipe.csv')
+
+
